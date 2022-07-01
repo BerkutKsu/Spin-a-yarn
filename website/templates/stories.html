@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Истории{% endblock %}
+{% block content %}
+{%for post in posts %}
+<div class="post">
+    <div class="string">
+        <p>Автор: none </p>
+        <p> {{ post.date_created }} </p>
+    </div>
+    {{ post.text }}
+    
+    <br>
+    {% if user.id == post.author %}
+    <a href="/delete_post/{{post.id}}" class="delete_href">Delete</a>
+    {% endif %}
+</div>
+{% endfor %}
+{% endblock %}

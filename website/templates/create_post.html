@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Ваша история{% endblock %}
+{% block content %}
+<form class="post_form" method="POST">
+	<select name="selection" size="1" class="selection">
+		<option value="anecdote">Анекдотичные истории из жизни</option>
+		<option value="anime">Аниме</option>
+		<option value="history">Исторический эпос</option>
+		<option value="cyberpunk">Киберпанк</option>
+		<option value="romantic">Романтические драмы</option>
+		<option value="superhero">Супергероика</option>
+		<option value="fantasy">Фэнтези</option>
+	</select>
+	<textarea name="text" id="text" autofocus="true"></textarea>
+	<button type="submit" class="btn2">Post</button>
+</form>
+{% endblock %}

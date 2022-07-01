@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Spin a yarn!{% endblock %}
+{% block content %}
+<div class="entrance">
+    <h1>Есть интересная история?<br>Хочешь ей поделиться?<br>Оставь её здесь!</h1>
+    <p><span>Spin a yarn !</span>-  соавторский блог для тех,<br>кто любит рассказывать истории</p>
+</div>
+{% if user.is_authenticated %}
+<div class="rubrics"><h1>Этика нашего блога</h1></div>
+<div class="rules">
+    <p>▶ Нецензурная брань запрещена</p>
+    <p>▶ Размещайте содержательный контент</p>
+    <p>▶ Проявляйте уважение к другим пользователям сайта</p>
+    <p>▶ Критика в комментариях должна быть конструктивной</p>
+    <span>▶ Спасибо за внимание и приятного пользования нашим ресурсом! ◀</span>
+</div>
+
+{% else %}
+<div class="rubrics"><h1>Хочу быть автором!</h1></div>
+<div class="btns">
+    <div class="href_btn"><a href="/sign_up"><p>Sign up</p></a></div>
+    <div class="href_btn"><a href="/login"><p >Log in</p></a></div>
+</div>
+{% endif %}
+{% endblock %}

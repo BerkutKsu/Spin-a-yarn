@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{% block title %}{% endblock %}</title>
+	<meta name="description" content="no description" />
+	
+	<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+	<link rel="icon" href="{{url_for('static', filename='css/assets/favi.png')}}" type="image/png">
+</head>
+<body>   
+    <div class="wall">
+        <div class="header">
+            <!-- if -->
+            <div class="header_panel">
+                {% if user.is_authenticated %}
+                <div class="doubles_tring">
+                    <h4>{{ user.username }}</h4>
+                    <a href="/logout"><p>Logout</p></a>
+                </div>
+                {% endif %}
+                <a href="/create_post"><div class="doubles_tring">
+                    <h3>Write</h3>
+                    <h3>a story</h3>
+                </div></a>
+            </div>
+            <div class="header_panel">
+                {% if user.is_authenticated %}
+                <a href="/home"><h2>Spin a yarn !</h2></a>
+                {% else %}
+                <a href="/home"><h1>Spin a yarn !</h1></a>
+                {% endif %}
+            </div>
+            <div class="header_panel">
+                <a href="/stories"><div class="doubles_tring">
+                    <h3>All</h3>
+                    <h3>stories</h3>
+                </div></a>
+                {% if user.is_authenticated %}
+                <a href="/posts/{{ user.username }}"><div class="doubles_tring">
+                    <h3>My</h3>
+                    <h3>stories</h3>
+                </div></a>
+                {% endif %}
+            </div>
+            <!--else-->
+            <!--<a href="/home"><h1>Spin a yarn !</h1></a>-->
+        </div>
+        {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            {% if category == 'error' %}
+                <div class="alert_error">{{ message }}</div>
+            {% else %}
+                <div class="alert_success">{{ message }}</div>
+            {% endif %}
+            {% endfor%}
+        {% endif %}
+        {% endwith %}
+        <div class="content">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+    <div class="footer">
+        <p>© 2022 Ксения Беркут</p>
+        <a href="tg://resolve?domain=berkut_ksu"><img src="{{url_for('static', filename='css/assets/tgD.png')}}"></a>
+        <a href="https://vk.com/golden_eagle39" target="_blank"><img src="{{url_for('static', filename='css/assets/vkD.png')}}"></a>
+    </div>
+    <script type="text/javascript" src="{{ url_for('static', filename='index.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}{{ rubrica }}{% endblock %}
+{% block content %}
+{%for post in posts %}
+<div class="post">
+    <div class="string">
+        <p>Автор: {{ post.user.username }} </p>
+        <p> {{ post.date_created }} </p>
+    </div>
+    {{ post.text }}
+    <div class="likes">
+        <p id="likes-count-{{post.id}}">{{ post.likes|length }}</p>
+        {% if user.id in post.likes|map(attribute="author")|list %}
+        <img src="{{url_for('static', filename='css/assets/like.png')}}" class="liked" id="like-button-{{post.id}}" onclick="like( {{post.id}} )">
+        {% else %}
+        <img src="{{url_for('static', filename='css/assets/like.png')}}" class="unliked" id="like-button-{{post.id}}" onclick="like( {{post.id}} )">
+        {% endif %}
+    </div>
+    {% if user.id == post.author %}
+    <a href="/delete_post/{{post.id}}" class="delete_href">Delete</a>
+    {% endif %}
+    {% for comment in post.comments %}
+    <div class="comment">
+        <div class="comment_text">
+           <p>{{ comment.user.username }} : <span> {{ comment.text }} </span></p>
+            <p> {{ comment.date_created }} </p>
+        </div>
+        <!--{% if user.id == comment.author or user.id == post.author %}
+        <a href="/delete_comment/{{comment.id}}/" class="delete_href2">Delete</a>
+        {% endif %}-->
+    </div>
+    {% endfor %}
+    {% if user.is_authenticated %}
+    <form method="POST" action="/create_comment/{{post.id}}" class="comment_form">
+        <textarea type="text" id="text" name="text" placeholder="Оставить комментарий"></textarea>
+        <button type="submit" class="btn3">Comment</button>
+    </form>
+    {% endif %}
+</div>
+{% endfor %}
+{% endblock %}
