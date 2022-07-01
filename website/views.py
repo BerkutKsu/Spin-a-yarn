@@ -51,8 +51,6 @@ def delete_post(id):
         db.session.commit()
         flash('Публикации больше нет!', category='success')
         
-    #user_name = session.get('user_name', None)
-        
     return redirect(url_for('views.stories'))
 
 
@@ -66,7 +64,6 @@ def posts(username):
         return redirect(url_for('views.home'))
     
     posts = user.posts
-    #session['user_name'] = username
     
     return render_template("user_posts.html", user=current_user, posts=posts, username=username)
 
